@@ -5,47 +5,34 @@ title: Home
 
 <!-- HERO / PROFILE SECTION -->
 <section class="profile">
+  <!--
+    TODO: Add your photo at src/assets/img/profile.jpg (square crop, ≥400px).
+    If the file is missing it is removed automatically — no broken image.
+  -->
   <div class="profile-photo-wrap">
-    <!--
-      TODO: Add your photo at src/assets/img/profile.jpg
-      Recommended: square crop, at least 400x400px
-    -->
     <img
       src="/assets/img/profile.jpg"
       alt="{{ metadata.name }}"
       class="profile-photo"
-      width="180"
-      height="180"
-      onerror="this.style.display='none'"
+      width="120"
+      height="120"
+      onerror="this.closest('.profile-photo-wrap').remove()"
     />
   </div>
 
   <div class="profile-info">
     <h1 class="profile-name">{{ metadata.name }}</h1>
-    <p class="profile-title">{{ metadata.title }}</p>
-    <p class="profile-institution">{{ metadata.institution }}</p>
+    <p class="profile-subtitle">{{ metadata.title }}{% if metadata.institution %} · {{ metadata.institution }}{% endif %}</p>
 
-    <!--
-      TODO: Replace placeholder text with your actual bio.
-      Keep it to 3-5 sentences. Plain prose, no LaTeX here.
-    -->
+    <!-- TODO: Replace with your bio (3–5 sentences, plain prose, no LaTeX). -->
     <p class="profile-bio">{{ metadata.description }}</p>
 
-    <div class="profile-links">
-      <!--
-        TODO: Add your CV at src/assets/cv/cv.pdf
-        The link below will work automatically once the file is in place.
-      -->
-      <a href="/assets/cv/cv.pdf" class="btn" target="_blank" rel="noopener">
-        CV (PDF)
-      </a>
-      <a href="{{ metadata.github }}" class="btn btn-secondary" target="_blank" rel="noopener">
-        GitHub
-      </a>
-      <a href="mailto:{{ metadata.email }}" class="btn btn-secondary">
-        Email
-      </a>
-    </div>
+    <nav class="profile-links" aria-label="Profile links">
+      <!-- TODO: Add your CV at src/assets/cv/cv.pdf -->
+      <a href="/assets/cv/cv.pdf" target="_blank" rel="noopener">CV</a>
+      <a href="{{ metadata.github }}" target="_blank" rel="noopener">GitHub</a>
+      <a href="mailto:{{ metadata.email }}">Email</a>
+    </nav>
   </div>
 </section>
 

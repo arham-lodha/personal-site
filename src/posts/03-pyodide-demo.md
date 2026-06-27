@@ -16,8 +16,9 @@ Type a SymPy expression and click **Compute**. The result is rendered as LaTeX u
 
 <div class="demo-container" id="pyodide-demo">
   <div id="pyodide-status" style="font-size:0.85rem; color:#6b7280; margin-bottom:0.75rem;">
-    Loading Python environment… (this may take a moment)
+    Python runs entirely in your browser via Pyodide (~10&nbsp;MB download). Click to begin.
   </div>
+  <button class="btn" id="load-btn" onclick="loadPyodide_()" style="margin-bottom:0.75rem;">Load Python environment</button>
   <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-bottom:0.75rem;">
     <input
       type="text"
@@ -43,13 +44,31 @@ Type a SymPy expression and click **Compute**. The result is rendered as LaTeX u
   </details>
 </div>
 
-<script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
 <script>
 let pyodide = null;
+let pyodideLoading = false;
+
+// Pyodide (~10 MB) is fetched only when the reader clicks "Load" — not on page load.
+function injectPyodideScript() {
+  return new Promise((resolve, reject) => {
+    if (window.loadPyodide) return resolve();
+    const s = document.createElement("script");
+    s.src = "https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js";
+    s.onload = resolve;
+    s.onerror = () => reject(new Error("could not fetch Pyodide"));
+    document.head.appendChild(s);
+  });
+}
 
 async function loadPyodide_() {
+  if (pyodideLoading) return;
+  pyodideLoading = true;
   const status = document.getElementById("pyodide-status");
+  const loadBtn = document.getElementById("load-btn");
+  if (loadBtn) loadBtn.style.display = "none";
   try {
+    status.textContent = "Loading Python environment… (this may take a moment)";
+    await injectPyodideScript();
     pyodide = await loadPyodide();
     status.textContent = "Loading SymPy…";
     await pyodide.loadPackage("sympy");
@@ -60,6 +79,8 @@ async function loadPyodide_() {
     document.getElementById("compute-btn").textContent = "Compute";
   } catch (err) {
     status.textContent = "Failed to load Python: " + err.message;
+    if (loadBtn) loadBtn.style.display = "";
+    pyodideLoading = false;
   }
 }
 
@@ -89,8 +110,6 @@ latex(${expr})
 document.getElementById("sympy-input").addEventListener("keydown", e => {
   if (e.key === "Enter") runSympy();
 });
-
-loadPyodide_();
 </script>
 
 <!-- KaTeX auto-render for dynamically inserted math -->

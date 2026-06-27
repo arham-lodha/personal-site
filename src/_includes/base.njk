@@ -5,14 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{% if title %}{{ title }} — {% endif %}{{ metadata.siteTitle }}</title>
   <meta name="description" content="{{ description or metadata.description }}" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" content="#fffff8" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#151515" media="(prefers-color-scheme: dark)" />
 
-  <!-- KaTeX CSS (math rendering) -->
-  <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"
-    integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5"
-    crossorigin="anonymous"
-  />
+  <!-- Self-hosted KaTeX CSS (math rendering) — no CDN round-trip -->
+  <link rel="stylesheet" href="/css/katex.min.css" />
 
   <link rel="stylesheet" href="/css/style.css" />
 </head>

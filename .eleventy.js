@@ -1,5 +1,5 @@
 const markdownIt = require("markdown-it");
-const markdownItKatex = require("markdown-it-katex");
+const markdownItKatex = require("@traptitech/markdown-it-katex");
 const fs = require("fs");
 
 module.exports = function (eleventyConfig) {
@@ -12,6 +12,14 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/css");
   eleventyConfig.addPassthroughCopy("src/js");
   eleventyConfig.addPassthroughCopy("src/assets");
+
+  // Self-host KaTeX CSS + fonts (no CDN round-trip / SRI fragility).
+  // katex.min.css references fonts via url(fonts/…), so fonts must sit
+  // alongside the CSS at /css/fonts/.
+  eleventyConfig.addPassthroughCopy({
+    "node_modules/katex/dist/katex.min.css": "css/katex.min.css",
+    "node_modules/katex/dist/fonts": "css/fonts",
+  });
 
   // Date filter for templates
   eleventyConfig.addFilter("dateDisplay", (date) => {

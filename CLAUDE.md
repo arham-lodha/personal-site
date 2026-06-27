@@ -14,7 +14,7 @@ npm run build        # production build → _site/
 
 - **Static site generator:** Eleventy (11ty) v3 — config in `.eleventy.js`
 - **Templating:** Nunjucks (`.njk`)
-- **Math rendering:** KaTeX via `markdown-it-katex` (build-time rendering); KaTeX CSS loaded from CDN in `<head>`
+- **Math rendering:** KaTeX via `@traptitech/markdown-it-katex` (build-time rendering); KaTeX CSS loaded from CDN in `<head>`. The installed `katex` package version **must match** the CDN CSS version in `base.njk` (currently 0.16.11) — a mismatch produces stale class names (e.g. `.mathit` vs `.mathnormal`) and broken math layout
 - **Search:** Lunr.js — index built at build time in `searchIndex` collection, queried client-side via `src/js/search.js`
 - **Hosting:** GitHub Pages via `.github/workflows/deploy.yml` (deploys `_site/` on push to `main`)
 - **Styling:** Hand-written CSS only (`src/css/style.css`) — no framework

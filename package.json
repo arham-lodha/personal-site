@@ -7,8 +7,9 @@
   },
   "dependencies": {
     "@11ty/eleventy": "^3.0.0",
-    "markdown-it": "^14.0.0",
-    "markdown-it-katex": "^2.0.3",
-    "lunr": "^2.3.9"
+    "@traptitech/markdown-it-katex": "^3.6.0",
+    "katex": "^0.16.11",
+    "lunr": "^2.3.9",
+    "markdown-it": "^14.0.0"
   }
 }
