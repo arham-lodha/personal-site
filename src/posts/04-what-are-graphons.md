@@ -13,7 +13,7 @@ tags: [posts, research, graphons, extremal combinatorics, probability]
 
 Suppose you're a data scientist studying the social networks of different countries, and you want to quantify the differences in their broad structure. Maybe the network of one country is a patchwork of small, tight-knit communities with sparse connections between them. Maybe another country's network is one big, densely interconnected community. How would you actually measure that difference?
 
-<!-->TODO INSERT figure over here</-->
+<!-->TODO INSERT figure of two different example country social networks over here</-->
 
 The obvious first move is to count: how many people (vertices), how many relationships (edges)? But raw counts don't tell you anything about structure — a country with a tenth the population could have an essentially identical social fabric, just scaled down. So you normalize: what's the *average* number of relationships per person in country A versus country B? This is closer, but it collapses too much information into a single number. A network made of many small, tightly-knit clusters connected by sparse bridges, and a network where everyone is uniformly loosely connected, can have exactly the same average degree while looking nothing alike.
 
